@@ -155,7 +155,7 @@ namespace MAUI_Counter.ViewModel
                     alert = "Podaj nazwę licznika";
                 if (!int.TryParse(valueText, out _))
                     alert = string.IsNullOrEmpty(alert) ? "Podaj poprawną wartość początkową" : alert + " oraz poprawną wartość początkową";
-
+                Application.Current.MainPage.DisplayAlert("Błąd", alert, "OK");
             }
         }
 
