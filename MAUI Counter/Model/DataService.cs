@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MAUI_Counter.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace MAUI_Counter
         }
          public List<Count> Load()
         {
+
             if (!File.Exists(filePath)) 
                 return new List<Count>(); 
 

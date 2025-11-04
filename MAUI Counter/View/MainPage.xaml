@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MAUI_Counter.ViewModel"
+             x:Class="MAUI_Counter.MainPage">
+
+    <ContentPage.BindingContext>
+        <vm:MainPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,0" Spacing="25">
+            <HorizontalStackLayout Spacing="5">
+                <Label Text="Counter Name:" VerticalOptions="Center" />
+                <Entry
+                    Placeholder="Counter Name"
+                    WidthRequest="200"
+                    Text="{Binding NewCounterName}" />
+                <Label Text="Initial Value Of The Counter:" VerticalOptions="Center" />
+                <Entry
+                    Placeholder="Counter Value"
+                    Keyboard="Numeric"
+                    WidthRequest="200"
+                    Text="{Binding NewCounterValue}" />
+                <VerticalStackLayout HeightRequest="90">
+                    <HorizontalStackLayout>
+                        <Label Text="Red" VerticalOptions="Center" WidthRequest="50"/>
+                        <Slider Minimum="0" Maximum="255" WidthRequest="200" Value="{Binding NewCounterColor.Red}" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label Text="Green" VerticalOptions="Center" WidthRequest="50"/>
+                        <Slider Minimum="0" Maximum="255" WidthRequest="200" Value="{Binding NewCounterColor.Green}" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label Text="Blue" VerticalOptions="Center" WidthRequest="50"/>
+                        <Slider Minimum="0" Maximum="255" WidthRequest="200" Value="{Binding NewCounterColor.Blue}" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+                <Border Stroke="black" StrokeThickness="1">
+                    <Border Stroke="White" StrokeThickness="1" Margin="1">
+                        <BoxView
+                            WidthRequest="50"
+                            Color="{Binding PreviewColor}" />
+                    </Border>
+                </Border>
+                <Button
+                    Text="Add Counter"
+                    Command="{Binding AddCounterCommand}" />
+            </HorizontalStackLayout>
+            <CollectionView ItemsSource="{Binding Counters}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding Name}" WidthRequest="200"/>
+                            <Button
+                                Text="+"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=IncreaseCounterCommand}"
+                                CommandParameter="{Binding .}" />
+                            <Label Text="{Binding Value}" VerticalOptions="Center"/>
+                            <Button
+                                Text="-"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DecreaseCounterCommand}"
+                                CommandParameter="{Binding .}" />
+                            <Border Stroke="black" StrokeThickness="1">
+                                <Border Stroke="White" StrokeThickness="1" Margin="1">
+                                    <BoxView Color="{Binding Color.Value}" WidthRequest="50" />
+                                </Border>
+                            </Border>
+                            <VerticalStackLayout HeightRequest="90">
+                                <HorizontalStackLayout>
+                                    <Label Text="Red" VerticalOptions="Center" WidthRequest="50"/>
+                                    <Slider Value="{Binding Color.Red}" Minimum="0" Maximum="255" WidthRequest="200" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout>
+                                    <Label Text="Green" VerticalOptions="Center" WidthRequest="50"/>
+                                    <Slider Value="{Binding Color.Green}" Minimum="0" Maximum="255" WidthRequest="200" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout>
+                                    <Label Text="Blue" VerticalOptions="Center" WidthRequest="50"/>
+                                    <Slider Value="{Binding Color.Blue}" Minimum="0" Maximum="255" WidthRequest="200" />
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                            <Button
+                                Text="Reset"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=ResetCounterCommand}"
+                                CommandParameter="{Binding .}" />
+                            <Button
+                                Text="Delete"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteCounterCommand}"
+                                CommandParameter="{Binding .}"
+                                BackgroundColor="Red"
+                                TextColor="Yellow"/>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
